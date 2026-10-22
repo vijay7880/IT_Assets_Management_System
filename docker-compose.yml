@@ -1,0 +1,19 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+
+    ports:
+      - "3000:3000"
+
+    restart: unless-stopped
+
+    environment:
+      # Docker Desktop resolves this name to the Windows host machine.
+      DB_HOST: host.docker.internal
+      DB_USER: root
+      DB_PASSWORD: 123456789
+      DB_NAME: It_assets
+      DB_PORT: 3306

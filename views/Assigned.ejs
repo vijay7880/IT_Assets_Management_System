@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Assets</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+       <link rel="stylesheet"
+      href="https://cdn.datatables.net/2.3.3/css/dataTables.dataTables.min.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <input class="sidebar-toggle" type="checkbox" id="sidebar-toggle">
+            <label class="sidebar-toggle-button" for="sidebar-toggle" aria-label="Collapse sidebar"></label>
+           <a class="brand" href="/"><img src="Radico logo.jpg" class="logo" alt="">
+                <div>
+                    <h1>IT Asset</h1>
+                    <span>Management System</span>
+                </div>
+                </a>
+            
+
+          <nav class="nav-menu">
+                <a class="" href="/"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="assets"><i class="fa-solid fa-box"></i> Assets</a>
+                <a class="active"href="assigned"><i class="fa-solid fa-user"></i> Assigned</a>
+                <a href="maintenance"><i class="fa-solid fa-wrench"></i> Maintenance </a>
+                <a href="scrap"><i class="fa-solid fa-trash"></i> Scrap Asset</a>
+            </nav>
+            <a class="topbar-badge sidebar-logout" href="/logout">Logout</a>
+        </aside>
+
+        <main class="content">
+            <section class="page-header-card">
+                <div class="page-header-top">
+                    <div>
+                        <div class="breadcrumb"><a class="breadcrumb" href="/">Home</a> &gt; Assigned Assets</div>
+                        <h3 class="page-title">Assigned Assets</h3>
+                    </div>
+
+                    <div class="toolbar">
+                   
+                        <br>
+
+                        
+                        <div class="header-actions">
+                            <a  class="btn btn-primary" href="/ExportAssigned">Export</a>
+                            <a href="/Add_Assigned" class="btn btn-primary">Add Assignment</a>
+
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+           
+
+            <div class="asset-table-container">
+            <table class="assets-table">
+                <thead>
+                    <tr>
+                        <th>RDTag_No</th>
+                        <th>E_Name</th>
+                        <th>E_Id</th>
+                        <th>Department</th>
+                        <th>Make</th>
+                        <th>Category</th>
+                        <th>Serial_No</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% Assigned.forEach((Ass)=>{ %>
+                        <tr>
+                            <td><a href="/assigned_view/<%=Ass.RDTag_No%>" class="action-link"><%=Ass.RDTag_No%></a></td>
+                            <td><%= Ass.E_Name%></td>
+                            <td><%= Ass.E_ID%></td>
+                            <td><%= Ass.Department%></td>
+                            <td><%= Ass.Asset_Name%></td>
+                            <td><%= Ass.Asset_Category%></td>
+                           
+                            <td><%=Ass.Asset_Serial_No%></td>
+                            <td><%=new Date(Ass.Assigned_Date).toLocaleDateString('en-CA')%></td>
+                            
+                            
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            </div>
+
+        </main>
+    </div>
+</body>
+<script>
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+
+    const isSidebarCollapsed =
+        localStorage.getItem("sidebarCollapsed") === "true";
+
+    sidebarToggle.checked = isSidebarCollapsed;
+
+    sidebarToggle.addEventListener("change", function () {
+        localStorage.setItem(
+            "sidebarCollapsed",
+            String(sidebarToggle.checked)
+        );
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    const assetTable = $('.assets-table').DataTable({
+        paging: false,
+        info: false,
+        searching: true
+    });
+
+ 
+});
+</script>
+
+</body>
+
+</html>
